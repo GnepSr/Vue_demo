@@ -17,7 +17,19 @@ const router = new Router({
     {
       path: '/home',
       name: 'home',
-      component: () => import('../views/home.vue')
+      component: () => import('../views/home.vue'),
+      redirect: '/welcome',
+      children: [{
+        path: '/welcome',
+        name: 'welcome',
+        component: () => import('../views/welcome.vue')
+      },
+      {
+        path:'/users',
+        name:'users',
+        component:()=>import('../views/users.vue')
+      }
+      ]
     }
   ]
 })
