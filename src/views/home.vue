@@ -35,7 +35,7 @@
             <!-- 一级菜单模板 -->
             <template slot="title">
               <i class="el-icon-s-promotion"></i>
-              <span>任务管理</span>
+              <span>权限管理</span>
             </template>
             <!-- 二级菜单 -->
             <el-menu-item index="task">
