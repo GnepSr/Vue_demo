@@ -25,9 +25,19 @@ const router = new Router({
         component: () => import('../views/welcome.vue')
       },
       {
-        path:'/users',
-        name:'users',
-        component:()=>import('../views/users.vue')
+        path: '/users',
+        name: 'users',
+        component: () => import('../views/users.vue')
+      },
+      {
+        path: '/rights',
+        name: 'rights',
+        component: () => import('../components/power/rights.vue')
+      },
+      {
+        path: '/roles',
+        name: 'roles',
+        component: () => import('../components/power/roles.vue')
       }
       ]
     }

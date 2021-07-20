@@ -19,8 +19,8 @@
         </el-form-item>
         <!-- 按钮 -->
         <el-form-item class="btn-box">
-          <el-button round @click="open1">注册</el-button>
-          <el-button round @click="login">登录</el-button>
+          <el-button round @click="open1" class="hvr-bob">注册</el-button>
+          <el-button round @click="login" class="hvr-bob">登录</el-button>
         </el-form-item>
       </el-form>
 
@@ -125,18 +125,18 @@
 
   // logo动画
   .bounce-in-top {
-    -webkit-animation: bounce-in-top 1.1s both;
-    animation: bounce-in-top 2.5s both;
+    -webkit-animation: bounce-in-top 10s both;
+    animation: bounce-in-top 10s both;
   }
 
   // 关键帧
   @-webkit-keyframes bounce-in-top {
     0% {
-      -webkit-transform: translateY(-500px);
-      transform: translateY(-500px);
+      -webkit-transform: translateY(-200px);
+      transform: translateY(-200px);
       -webkit-animation-timing-function: ease-in;
       animation-timing-function: ease-in;
-      opacity: 0;
+      opacity: 1;
     }
 
     38% {
@@ -148,8 +148,8 @@
     }
 
     55% {
-      -webkit-transform: translateY(-65px);
-      transform: translateY(-65px);
+      -webkit-transform: translateY(-100px);
+      transform: translateY(-100px);
       -webkit-animation-timing-function: ease-in;
       animation-timing-function: ease-in;
     }
@@ -162,8 +162,8 @@
     }
 
     81% {
-      -webkit-transform: translateY(-28px);
-      transform: translateY(-28px);
+      -webkit-transform: translateY(-55px);
+      transform: translateY(-55px);
       -webkit-animation-timing-function: ease-in;
       animation-timing-function: ease-in;
     }
@@ -176,8 +176,8 @@
     }
 
     95% {
-      -webkit-transform: translateY(-8px);
-      transform: translateY(-8px);
+      -webkit-transform: translateY(-25px);
+      transform: translateY(-25px);
       -webkit-animation-timing-function: ease-in;
       animation-timing-function: ease-in;
     }
@@ -192,11 +192,11 @@
 
   @keyframes bounce-in-top {
     0% {
-      -webkit-transform: translateY(-500px);
-      transform: translateY(-500px);
+      -webkit-transform: translateY(-200px);
+      transform: translateY(-200px);
       -webkit-animation-timing-function: ease-in;
       animation-timing-function: ease-in;
-      opacity: 0;
+      opacity: 1;
     }
 
     38% {
@@ -208,8 +208,8 @@
     }
 
     55% {
-      -webkit-transform: translateY(-65px);
-      transform: translateY(-65px);
+      -webkit-transform: translateY(-100px);
+      transform: translateY(-100px);
       -webkit-animation-timing-function: ease-in;
       animation-timing-function: ease-in;
     }
@@ -222,8 +222,8 @@
     }
 
     81% {
-      -webkit-transform: translateY(-28px);
-      transform: translateY(-28px);
+      -webkit-transform: translateY(-55px);
+      transform: translateY(-55px);
       -webkit-animation-timing-function: ease-in;
       animation-timing-function: ease-in;
     }
@@ -236,8 +236,8 @@
     }
 
     95% {
-      -webkit-transform: translateY(-8px);
-      transform: translateY(-8px);
+      -webkit-transform: translateY(-25px);
+      transform: translateY(-25px);
       -webkit-animation-timing-function: ease-in;
       animation-timing-function: ease-in;
     }

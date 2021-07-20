@@ -23,6 +23,7 @@
 
       <!-- 用户信息表格 -->
       <el-table :data="tableData" border stripe>
+        <!-- 索引列 -->
         <el-table-column type="index" align="center">
         </el-table-column>
         <el-table-column prop="name" label="姓名" align="center">
@@ -44,10 +45,10 @@
           <template slot-scope="">
             <!-- {{scope.row}} -->
             <el-tooltip effect="dark" content="修改" placement="top" :enterable="false">
-              <el-button type="primary" icon="el-icon-edit" @click="showEditDialog"></el-button>
+              <el-button size="mini" type="primary" icon="el-icon-edit" @click="showEditDialog"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="删除" placement="top" :enterable="false">
-              <el-button type="danger" icon="el-icon-delete" @click="deletUser"></el-button>
+              <el-button size="mini" type="danger" icon="el-icon-delete" @click="deletUser"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>

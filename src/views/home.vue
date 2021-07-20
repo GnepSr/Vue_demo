@@ -38,11 +38,18 @@
               <span>权限管理</span>
             </template>
             <!-- 二级菜单 -->
-            <el-menu-item index="task">
+            <el-menu-item index="rights">
               <!-- 二级菜单模板 -->
               <template slot="title">
                 <i class="el-icon-menu"></i>
-                <span>任务分配</span>
+                <span>权限列表</span>
+              </template>
+            </el-menu-item>
+            <el-menu-item index="roles">
+              <!-- 二级菜单模板 -->
+              <template slot="title">
+                <i class="el-icon-menu"></i>
+                <span>角色列表</span>
               </template>
             </el-menu-item>
           </el-submenu>
@@ -100,8 +107,8 @@
         this.activePath = e
       }
     },
-    created(){
-      this.activePath=window.sessionStorage.getItem('path')
+    created() {
+      this.activePath = window.sessionStorage.getItem('path')
     }
   }
 
