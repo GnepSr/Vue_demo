@@ -59,14 +59,30 @@
               <!-- 一级菜单模板 -->
               <template slot="title">
                 <i class="el-icon-star-on"></i>
-                <span>资金管理</span>
+                <span>更多功能</span>
               </template>
               <!-- 二级菜单 -->
               <el-menu-item index="money">
                 <!-- 二级菜单模板 -->
                 <template slot="title">
                   <i class="el-icon-menu"></i>
-                  <span>资金分配</span>
+                  <span>功能详情</span>
+                </template>
+              </el-menu-item>
+            </el-submenu>
+
+            <el-submenu index="4">
+              <!-- 一级菜单模板 -->
+              <template slot="title">
+                <i class="el-icon-s-marketing"></i>
+                <span>数据统计</span>
+              </template>
+              <!-- 二级菜单 -->
+              <el-menu-item index="money">
+                <!-- 二级菜单模板 -->
+                <template slot="title">
+                  <i class="el-icon-menu"></i>
+                  <span>数据列表</span>
                 </template>
               </el-menu-item>
             </el-submenu>

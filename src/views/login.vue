@@ -1,30 +1,33 @@
 <template>
   <div class="login-container">
-    <div class="login-box">
+    <el-row>
       <!-- logo模块 -->
-      <div class="logo">
+      <el-col :span="10">
         <img class="logo bounce-in-top" src="../assets/logo.png" alt="">
-      </div>
-      <h1>欢迎登录</h1>
-
-      <!-- 表单模块 -->
-      <el-form :model="form" ref="formRef" class="form" :rules="rules">
-        <!-- 账号 -->
-        <el-form-item class="userName" prop="userName">
-          <el-input prefix-icon="el-icon-s-custom" v-model="form.userName"></el-input>
-        </el-form-item>
-        <!-- 密码 -->
-        <el-form-item prop="userPassWorld">
-          <el-input prefix-icon="el-icon-key" v-model="form.userPassWorld" show-password></el-input>
-        </el-form-item>
-        <!-- 按钮 -->
-        <el-form-item class="btn-box">
-          <el-button round @click="open1" class="hvr-bob">注册</el-button>
-          <el-button round @click="login" class="hvr-bob">登录</el-button>
-        </el-form-item>
-      </el-form>
-
-    </div>
+      </el-col>
+      <!-- 登录模块 -->
+      <el-col :span="11" :push="2">
+        <div class="login-box">
+          <h1 class="hi">欢迎登录</h1>
+          <!-- 表单模块 -->
+          <el-form :model="form" ref="formRef" class="form" :rules="rules">
+            <!-- 账号 -->
+            <el-form-item class="userName" prop="userName">
+              <el-input prefix-icon="el-icon-s-custom" v-model="form.userName"></el-input>
+            </el-form-item>
+            <!-- 密码 -->
+            <el-form-item prop="userPassWorld">
+              <el-input prefix-icon="el-icon-key" v-model="form.userPassWorld" show-password></el-input>
+            </el-form-item>
+            <!-- 按钮 -->
+            <el-form-item class="btn-box">
+              <el-button round @click="open1" class="hvr-bob">注册</el-button>
+              <el-button round @click="login" class="hvr-bob">登录</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -81,44 +84,23 @@
     height: 100%;
     background-image: url('../assets/login-bg.jpg');
     background-size: 100% 100%;
-    position: relative;
+    box-sizing: border-box;
+    padding: 50px;
+
+    .logo {
+      width: 600px;
+      height: 600px;
+    }
 
     .login-box {
-      width: 600px;
-      height: 300px;
-      background-image: linear-gradient(to left top, #4A47A3, #548CA8);
-      border-radius: 15px;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+      height: 600px;
+      background-color:rgba(15,71,109,0.5);
       box-sizing: border-box;
-      padding: 0 20px;
-
-      .logo {
-        position: absolute;
-        width: 200px;
-        height: 200px;
-        top: -24%;
-      }
-
-      h1 {
+      padding: 20px 20%;
+      border-radius: 16px;
+      .hi{
+        color: #eee;
         text-align: center;
-        color: #222831;
-      }
-
-      .btn-box {
-        display: flex;
-        justify-content: flex-end;
-      }
-
-      .form {
-        width: 400px;
-        margin: 0 auto;
-
-        .userName {
-          margin: 30px 0;
-        }
       }
     }
   }
@@ -249,6 +231,5 @@
       animation-timing-function: ease-out;
     }
   }
-  
 
 </style>
