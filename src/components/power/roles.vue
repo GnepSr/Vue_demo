@@ -7,8 +7,22 @@
     </el-breadcrumb>
 
     <el-card class="box-card">
-      <el-button type="primary">添加角色</el-button>
-
+      <el-button type="primary" @click="showAddRoleDialog">添加角色</el-button>
+      <!-- 添加角色 -->
+      <el-dialog title="添加角色" :visible.sync="addRoleDialogVisible" width="50%">
+        <el-form :model="roleForm" :rules="roleRules" ref="roleRef" label-width="100px">
+          <el-form-item label="角色名称" prop="name">
+            <el-input v-model="roleForm.name"></el-input>
+          </el-form-item>
+          <el-form-item label="角色描述" prop="desc">
+            <el-input v-model="roleForm.desc"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="cancleAddRole">取 消</el-button>
+          <el-button type="primary" @click="addRole">确 定</el-button>
+        </span>
+      </el-dialog>
       <!-- 角色列表 -->
       <el-table :data="roleList" border stripe>
         <!-- 展开列 -->
@@ -50,22 +64,25 @@
         <el-table-column prop="roleDesc" label="角色描述" align="center">
         </el-table-column>
         <el-table-column label="操作" align="center" width="300">
-          <template slot-scope="">
+          <template slot-scope="scope">
             <!-- {{scope.row}} -->
             <el-button size="mini" type="primary" icon="el-icon-edit">编辑</el-button>
             <el-button size="mini" type="danger" icon="el-icon-delete">删除</el-button>
-            <el-button size="mini" type="warning" icon="el-icon-setting" @click="showSetRights">分配权限</el-button>
+            <el-button size="mini" type="warning" icon="el-icon-setting" @click="showSetRights(scope.row)">分配权限
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
 
       <!-- 权限分配对话框 -->
-      <el-dialog title="分配权限" :visible.sync="setRightsDialogVisible" width="50%">
+      <el-dialog title="分配权限" :visible.sync="setRightsDialogVisible" width="50%" @close="setRightsDialogClose">
         <!-- 树形控件 -->
-        <el-tree :data="treeList" :props="treeProps"></el-tree>
+        <el-tree :data="data" ref="treeRef" :props="treeProps" show-checkbox node-key="id" default-expand-all
+          :default-checked-keys="defKeys">
+        </el-tree>
         <span slot="footer" class="dialog-footer">
           <el-button @click="setRightsDialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="setRightsDialogVisible = false">确 定</el-button>
+          <el-button type="primary" @click="allotRights">确 定</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -76,200 +93,86 @@
   export default {
     data() {
       return {
+        addRoleDialogVisible: false,
         setRightsDialogVisible: false,
-        treeList: [{
-            id: 1000001,
-            lable: '一级权限',
+        defKeys: [],
+        roleForm: {
+          name: '',
+          desc: ''
+        },
+        roleRules: {
+          name: [{
+            required: true,
+            message: '请输入角色名称',
+            trigger: 'blur'
+          }],
+          desc: [{
+            required: true,
+            message: '请输入角色描述',
+            trigger: 'blur'
+          }, ]
+        },
+        data: [{
+          id: 10001,
+          label: '一级权限',
+          children: [{
+            id: 10011,
+            label: '二级权限',
             children: [{
-                id: 1000011,
-                lable: '二级权限',
-                children: [{
-                    id: 1000111,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10001111,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 100011111,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 1000111111,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10001111111,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 100011111111,
-                    lable: '三级权限'
-                  },
-                ]
+                id: 10111,
+                label: '三级权限'
               },
               {
-                id: 1000022,
-                lable: '二级权限',
-                children: [{
-                    id: 10002222,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 100022222,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 1000222222,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10002222222,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 100022222222,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 1000222222222,
-                    lable: '三级权限'
-                  },
-                ]
+                id: 10115,
+                label: '三级权限'
               },
               {
-                id: 100000333,
-                lable: '二级权限',
-                children: [{
-                    id: 1000003333,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10000033331,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10000033332,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10000033334,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10000033336,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10000033337,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10000033330,
-                    lable: '三级权限'
-                  },
-                ]
+                id: 10116,
+                label: '三级权限'
               },
+              {
+                id: 10117,
+                label: '三级权限'
+              }
             ]
-          },
-          {
-            id: 1000001,
-            lable: '一级权限',
+          }]
+        }, {
+          id: 10002,
+          label: '一级权限',
+          children: [{
+            id: 10022,
+            label: '二级权限',
             children: [{
-                id: 1000011,
-                lable: '二级权限',
-                children: [{
-                    id: 1000111,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10001111,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 100011111,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 1000111111,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10001111111,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 100011111111,
-                    lable: '三级权限'
-                  },
-                ]
-              },
-              {
-                id: 1000022,
-                lable: '二级权限',
-                children: [{
-                    id: 10002222,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 100022222,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 1000222222,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10002222222,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 100022222222,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 1000222222222,
-                    lable: '三级权限'
-                  },
-                ]
-              },
-              {
-                id: 100000333,
-                lable: '二级权限',
-                children: [{
-                    id: 1000003333,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10000033331,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10000033332,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10000033334,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10000033336,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10000033337,
-                    lable: '三级权限'
-                  },
-                  {
-                    id: 10000033330,
-                    lable: '三级权限'
-                  },
-                ]
-              },
-            ]
-          }
-        ],
+              id: 10222,
+              label: '三级权限'
+            }]
+          }, {
+            id: 10021,
+            label: '二级权限',
+            children: [{
+              id: 10211,
+              label: '三级权限'
+            }]
+          }]
+        }, {
+          id: 10003,
+          label: '一级权限',
+          children: [{
+            id: 10031,
+            label: '二级权限',
+            children: [{
+              id: 10331,
+              label: '三级权限'
+            }]
+          }, {
+            id: 10032,
+            label: '二级权限',
+            children: [{
+              id: 10332,
+              label: '三级权限'
+            }]
+          }]
+        }],
         roleList: [{
             roleName: '超级管理员',
             roleDesc: '超级管理员拥有所有权限',
@@ -507,6 +410,28 @@
       }
     },
     methods: {
+      // 显示添加角色
+      showAddRoleDialog() {
+        this.addRoleDialogVisible = true
+      },
+      // 添加角色
+      addRole() {
+        // 表单预校验
+        this.$refs.roleRef.validate(res => {
+          if (!res) return
+
+          // 发请求
+
+          this.$message.success('添加角色成功')
+          this.addRoleDialogVisible = false
+        })
+      },
+      // 取消添加角色
+      cancleAddRole() {
+        this.$refs.roleRef.resetFields()
+        this.$message('已取消添加角色')
+        this.addRoleDialogVisible = false
+      },
       removeRights(role, rightsId) {
         this.$confirm('删除该权限, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -524,9 +449,38 @@
           });
         });
       },
-      showSetRights() {
+      showSetRights(role) {
+        this.getLeafKeys(role, this.defKeys)
         this.setRightsDialogVisible = true
         console.log(this.treeList)
+      },
+
+      // 获取所有勾选的子节点
+      getLeafKeys(node, arr) {
+        if (!node.children) {
+          return arr.push(node.id)
+        }
+
+        node.children.forEach(element => {
+          this.getLeafKeys(element, arr)
+        });
+      },
+
+      // 关闭权限分配对话框清空缓存数组
+      setRightsDialogClose() {
+        this.defKeys = []
+      },
+
+      // 点击确定分配角色权限
+      allotRights() {
+        const keys = [
+          ...this.$refs.treeRef.getCheckedKeys,
+          ...this.$refs.treeRef.getHalfCheckedKeys
+        ]
+
+        const keysStr = keys.join(',')
+
+        this.setRightsDialogVisible = false
       }
     }
   }

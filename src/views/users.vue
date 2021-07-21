@@ -42,13 +42,16 @@
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center">
-          <template slot-scope="">
-            <!-- {{scope.row}} -->
+          <template slot-scope="scope">
             <el-tooltip effect="dark" content="修改" placement="top" :enterable="false">
               <el-button size="mini" type="primary" icon="el-icon-edit" @click="showEditDialog"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="删除" placement="top" :enterable="false">
               <el-button size="mini" type="danger" icon="el-icon-delete" @click="deletUser"></el-button>
+            </el-tooltip>
+            <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
+              <el-button size="mini" type="warning" icon="el-icon-setting" @click="showSeetingRole(scope.row)">
+              </el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -101,6 +104,28 @@
           <el-button type="primary" @click="editUser">确 定</el-button>
         </span>
       </el-dialog>
+
+      <!-- 分配角色对话框 -->
+      <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%" @close="setRoleDialogClose">
+        <el-form ref="setRoleFormRef" :model="setRoleForm" label-width="100px">
+          <el-form-item label="当前用户名">
+            <el-input v-model="setRoleForm.name" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="当前用户角色">
+            <el-input v-model="setRoleForm.role_name" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="分配新的角色">
+            <el-select v-model="value" placeholder="请选择">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="cancleSeetingRole">取 消</el-button>
+          <el-button type="primary" @click="seetingRole">确 定</el-button>
+        </span>
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -110,6 +135,22 @@
     data() {
       return {
         editDialogVisible: false,
+        setRoleDialogVisible: false,
+        setRoleForm: {},
+        value: '',
+        options: [{
+          value: '1',
+          label: '超级管理员'
+        }, {
+          value: '2',
+          label: '普通管理员'
+        }, {
+          value: '3',
+          label: '会员用户'
+        }, {
+          value: '4',
+          label: '普通用户'
+        }],
         addForm: {
           name: '',
           email: '',
@@ -296,6 +337,37 @@
             message: '已取消删除'
           });
         });
+      },
+
+      // 显示分配角色对话框
+      showSeetingRole(userInfo) {
+        this.setRoleForm = userInfo
+
+        // 发请求获取所有角色列表
+
+
+        this.setRoleDialogVisible = true
+      },
+
+      // 取消分配角色
+      cancleSeetingRole() {
+        this.$message('已取消分配角色')
+
+        this.setRoleDialogVisible = false
+      },
+
+      // 分配角色
+      seetingRole() {
+        // 发送请求
+
+        this.$message.success('分配角色成功')
+
+        this.setRoleDialogVisible = false
+      },
+
+      // 监听分配角色对话框关闭
+      setRoleDialogClose() {
+        this.value=''
       }
     }
   }
