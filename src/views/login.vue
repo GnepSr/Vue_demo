@@ -1,13 +1,13 @@
 <template>
   <div class="login-container">
-    <el-row>
+    <el-row type="flex">
       <!-- logo模块 -->
       <el-col :span="10">
         <img class="logo bounce-in-top" src="../assets/logo.png" alt="">
       </el-col>
       <!-- 登录模块 -->
-      <el-col :span="11" :push="2">
-        <div class="login-box">
+      <el-col :span="11" :push="2" class="login-col">
+        <div class="login-box vibrate-1">
           <h1 class="hi">欢迎登录</h1>
           <!-- 表单模块 -->
           <el-form :model="form" ref="formRef" class="form" :rules="rules">
@@ -21,10 +21,12 @@
             </el-form-item>
             <!-- 按钮 -->
             <el-form-item class="btn-box">
-              <el-button round @click="open1" class="hvr-bob">注册</el-button>
-              <el-button round @click="login" class="hvr-bob">登录</el-button>
+              <el-button round @click="signin" class="hvr-bob btn">注册</el-button>
+              <el-button round @click="login" class="hvr-bob btn">登录</el-button>
             </el-form-item>
           </el-form>
+
+          <span><a href="#/findPassWorld" class="forgetPassWorld"> <i class="el-icon-question"></i> 忘记密码，点我立即找回</a></span>
         </div>
       </el-col>
     </el-row>
@@ -59,8 +61,8 @@
       }
     },
     methods: {
-      open1() {
-        this.$message('这是一条消息提示');
+      signin() {
+        this.$router.push("/signin")
       },
 
       // 登陆前预验证表单项是否合法
@@ -88,20 +90,51 @@
     padding: 50px;
 
     .logo {
-      width: 600px;
-      height: 600px;
+      width: 100%;
     }
 
     .login-box {
-      height: 600px;
-      background-color:rgba(15,71,109,0.5);
+      height: 70%;
+      margin: 10% 0 20% 0;
+      background-color: rgba(15, 71, 109, 0.5);
       box-sizing: border-box;
-      padding: 20px 20%;
       border-radius: 16px;
-      .hi{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .hi {
         color: #eee;
         text-align: center;
       }
+
+      .el-input {
+        width: 400px;
+      }
+
+      .btn-box {
+        display: flex;
+        justify-content: flex-end;
+        margin: 30px 0;
+
+        .btn {
+          width: 120px;
+        }
+      }
+
+      .forgetPassWorld {
+        text-decoration: none;
+        font-size: 15px;
+        color: #eee;
+
+        .el-icon-question {
+          font-size: 16px;
+        }
+      }
+
+
+
     }
   }
 
@@ -229,6 +262,77 @@
       transform: translateY(0);
       -webkit-animation-timing-function: ease-out;
       animation-timing-function: ease-out;
+    }
+  }
+
+
+  //   漂浮动画
+  .vibrate-1 {
+    -webkit-animation: vibrate-1 8s linear infinite both;
+    animation: vibrate-1 8s linear infinite both;
+  }
+
+  @-webkit-keyframes vibrate-1 {
+    0% {
+      -webkit-transform: translate(0);
+      transform: translate(0);
+    }
+
+    20% {
+      -webkit-transform: translate(-6px, 6px);
+      transform: translate(-6px, 6px);
+    }
+
+    40% {
+      -webkit-transform: translate(-6px, -6px);
+      transform: translate(-6px, -6px);
+    }
+
+    60% {
+      -webkit-transform: translate(6px, 6px);
+      transform: translate(6px, 6px);
+    }
+
+    80% {
+      -webkit-transform: translate(6px, -6px);
+      transform: translate(6px, -6px);
+    }
+
+    100% {
+      -webkit-transform: translate(0);
+      transform: translate(0);
+    }
+  }
+
+  @keyframes vibrate-1 {
+    0% {
+      -webkit-transform: translate(0);
+      transform: translate(0);
+    }
+
+    20% {
+      -webkit-transform: translate(-6px, 6px);
+      transform: translate(-6px, 6px);
+    }
+
+    40% {
+      -webkit-transform: translate(-6px, -6px);
+      transform: translate(-6px, -6px);
+    }
+
+    60% {
+      -webkit-transform: translate(6px, 6px);
+      transform: translate(6px, 6px);
+    }
+
+    80% {
+      -webkit-transform: translate(6px, -6px);
+      transform: translate(6px, -6px);
+    }
+
+    100% {
+      -webkit-transform: translate(0);
+      transform: translate(0);
     }
   }
 

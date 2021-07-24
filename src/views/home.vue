@@ -78,7 +78,7 @@
                 <span>数据统计</span>
               </template>
               <!-- 二级菜单 -->
-              <el-menu-item index="money">
+              <el-menu-item index="report">
                 <!-- 二级菜单模板 -->
                 <template slot="title">
                   <i class="el-icon-menu"></i>
